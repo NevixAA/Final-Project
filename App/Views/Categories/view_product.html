@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block link %}
+<link rel="stylesheet" href="/css/view_product.css">
+{% endblock %}
+{% block title %}צפייה במוצר{% endblock %}
+
+{% block body %}
+
+<!--View product details-->
+<div class="product_view">
+    <div class="container">
+        <div class="row">
+            {% for p in product %}
+            <div class="col-12 col-lg-6 d-flex flex-column justify-content-between">
+                <div class="w-100">
+                    <input id="productIdField" type="hidden" value="{{p.product_id}}">
+                    <div class="mb-1 h5">{{p.product_name}}</div>
+                    <div class="mb-4">
+                        <span>{{p.product_price}}</span>
+                        <span>ש"ח</span>
+                    </div>
+                    <div class="d-flex">
+                        <div class="mr-2 mb-4">קיים במלאי:</div>
+                        <div>
+                            <!--Product Stock or out of stock-->
+                            <span id="inStock" class="text-success">קיים</span>
+                            <span id="outOfStock" class="text-danger">לא קיים</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col">
+                            צבעים:
+                        </div>
+                    </div>
+                    <!--Product colors selection-->
+                    <div class="row mb-2">
+                        <div id="productColors" class="col">
+                            {% if colorsQnty[0].quantity > 0%}
+                            <div id="productBlue" class="productColor productColor-blue"></div>
+                            {% endif %}
+                            {% if colorsQnty[1].quantity > 0%}
+                            <div id="productRed" class="productColor productColor-red"></div>
+                            {% endif %}
+                            {% if colorsQnty[2].quantity > 0%}
+                            <div id="productBlack" class="productColor productColor-black"></div>
+                            {% endif %}
+                            {% if colorsQnty[3].quantity > 0%}
+                            <div id="productWhite" class="productColor productColor-white"></div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-2">
+                        <div class="col">
+                            מידות:
+                        </div>
+                    </div>
+
+                    <!--Product sizes selection-->
+                    <div class="row mb-4">
+                        <div class="col">
+                            <div id="productSizes" class="btn-group" role="group" aria-label="Basic example">
+                                <button id="size-extraLarge" type="button" class="btn btn-outline-dark">XL</button>
+                                <button id="size-large" type="button" class="btn btn-outline-dark">L</button>
+                                <button id="size-medium" type="button" class="btn btn-outline-dark">M</button>
+                                <button id="size-small" type="button" class="btn btn-outline-dark">S</button>
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="productIncDecParent" class="col d-flex">
+                            <div id="incQntty-{{p.product_id}}" class="qntty incQntty d-flex align-items-center justify-content-center"> 
+                                +
+                            </div>
+                            <div id="qnttyValue-{{p.product_id}}" class="qntty mx-1 d-flex align-items-center justify-content-center">1</div> 
+                            <div id="decQntty-{{p.product_id}}" class="qntty decQntty d-flex align-items-center justify-content-center" >
+                                -
+                            </div>
+                            <!--ADD PRODUCT TO CART BUTTON-->
+                            <button id="add_to_cart_btn" class="btn btn-dark ml-2">
+                                הוסף לעגלה
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1 mt-4 flex-wrap">
+                        <div class="col">
+                            {{p.description}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <!--View product main image-->
+            <div class="col">
+                <div class="mt-4 mt-lg-0">
+                    <img id="viewProductImg" src="/images/{{p.product_img}}" class="product-view-img">
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--Related products section-->
+<div class="container">
+    <!--Related product title-->
+    <div class="row">
+        <div class="col">
+            <div class="related-product-title text-center h3">
+                מוצרים מאותה הקטגוריה
+            </div>
+        </div>
+    </div>
+
+    <!--Related products-->
+    <div class="row">
+        <div class="col">
+            <div class="related-products d-flex flex-column flex-lg-row justify-content-between">
+
+                {% if related_products %}
+
+                {% for rp in related_products %}
+                <!--Product-->
+                <div class="product-card">
+                    <div class="card">
+                        <a href="/categories/{{rp.category_name}}/{{rp.product_id}}">
+                            <img class="card-img-top" src="/images/{{rp.product_img}}" alt="{{rp.display_name}}">
+                        </a>
+                        <div class="card-body">
+                            <a href="/categories/{{rp.category_name}}/{{rp.product_id}}" class="card-text">
+                                {{rp.product_name}}
+                            </a>
+                            <p class="card-text">
+                                {{rp.product_price}}
+                                <span>ש"ח</span>
+                            </p>
+                        </div>
+                    </div>‏
+                </div>
+                {% endfor %}
+
+                {% else %}
+                <div class="container text-center mb-4 text-danger h5">
+                    לא קיימים עוד מוצרים מאותה הקטגוריה
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block script %}
+<script src="/js/cart-general.js"></script>
+<script src="/js/view_product.js"></script>
+
+{% endblock %}
+
+
+
+

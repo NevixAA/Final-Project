@@ -1,0 +1,119 @@
+{% extends "admin_base.html" %}
+
+{% block link %}
+{% endblock %}
+
+{% block title %}ניהול משתמשים{% endblock %}
+
+{% block dashIcon %}
+
+<svg class="bi bi-people-fill dashboard_title_icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+  </svg>
+{% endblock %}
+
+{% block dashTitle %}משתמשים{% endblock %}
+
+{% block dashSubtitle %}רשימת משתמשים{% endblock %}
+
+{% block body %}
+
+
+
+
+<!--Users table-->
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr class="bg-light">
+                <th scope="col">מזהה</th>
+                <th scope="col">סוג הרשאה</th>
+                <th scope="col">שם</th>
+                <th scope="col">משפחה</th>
+                <th scope="col">אימייל</th>
+                <th scope="col">תאריך הצטרפות</th>
+                <th scope="col" class="text-center">פעולות</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for u in users %}
+            <!--User-->
+            <tr>
+                <th scope="row">{{u.id}}</th>
+                <td>{{u.type}}</td>
+                <td>{{u.name}}</td>
+                <td>{{u.last_name}}</td>
+                <td>{{u.email}}</td>
+                <td>{{u.created_at}}</td>
+                <td>
+
+                    <!--User edit,delete buttons-->
+                    <div class="d-flex justify-content-end">
+                        <form action="/admin/users/delete/{{u.id}}" method="POST">
+                            <button class="btn btn-primary mr-2" name="deleteUser">הסרה</button>
+                        </form>
+                        <a href="/admin/users/edit/{{u.id}}" class="btn btn-primary mr-2">עדכון</a>
+                        <div class="d-flex align-items-end">
+                            <a href="#user_info{{u.id}}" class="btn btn-default" data-toggle="collapse">
+                                <svg class="bi bi-chevron-compact-down" width="1em" height="1em" viewBox="0 0 16 16"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M1.553 6.776a.5.5 0 01.67-.223L8 9.44l5.776-2.888a.5.5 0 11.448.894l-6 3a.5.5 0 01-.448 0l-6-3a.5.5 0 01-.223-.67z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr id="user_info{{u.id}}" class="main-container collapse">
+                <td colspan="7">
+                    <table class="w-100">
+
+                        <thead>
+                            <tr>
+                                <th class="h6">
+                                    מספר פלאפון
+                                </th>
+                                <th class="h6">
+                                    תאריך לידה
+                                </th>
+                                <th class="h6">
+                                    עיר
+                                </th>
+                                <th class="h6">
+                                    רחוב
+                                </th>
+                                <th class="h6">
+                                    מספר בית
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>{{u.phone_num}}</td>
+                                <td>{{u.date_of_birth}}</td>
+                                <td>{{u.city}}</td>
+                                <td>{{u.street_name}}</td>
+                                <td>{{u.house_num}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+
+
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+{% endblock %}

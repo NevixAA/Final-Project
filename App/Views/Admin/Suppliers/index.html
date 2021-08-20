@@ -1,0 +1,144 @@
+{% extends "admin_base.html" %}
+
+{% block title %}ניהול ספקים{% endblock %}
+
+
+{% block dashIcon %}
+<svg class="bi bi-truck dashboard_title_icon" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5v7h-1v-7a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5v1A1.5 1.5 0 0 1 0 10.5v-7zM4.5 11h6v1h-6v-1z"/>
+    <path fill-rule="evenodd" d="M11 5h2.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5h-1v-1h1a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4.5h-1V5zm-8 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+    <path fill-rule="evenodd" d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+  </svg>
+{% endblock %}
+
+
+{% block dashTitle %}ספקים{% endblock %}
+
+{% block dashSubtitle %}רשימת ספקים{% endblock %}
+
+
+{% block body %}
+<!--Export to text file-->
+<div class="mt-4 mb-4">
+
+    {% for error in textErrors %}
+    <div class="text-danger">
+        <span>* </span>{{error}}
+    </div>
+    {% endfor %}
+
+    <a href="#export" data-toggle="collapse" class="btn btn-light">
+        ייצא לקובץ טקסט
+        <svg class="bi bi-box-arrow-in-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                d="M4.646 8.146a.5.5 0 01.708 0L8 10.793l2.646-2.647a.5.5 0 01.708.708l-3 3a.5.5 0 01-.708 0l-3-3a.5.5 0 010-.708z"
+                clip-rule="evenodd" />
+            <path fill-rule="evenodd" d="M8 1a.5.5 0 01.5.5v9a.5.5 0 01-1 0v-9A.5.5 0 018 1z" clip-rule="evenodd" />
+            <path fill-rule="evenodd"
+                d="M1.5 13.5A1.5 1.5 0 003 15h10a1.5 1.5 0 001.5-1.5v-8A1.5 1.5 0 0013 4h-1.5a.5.5 0 000 1H13a.5.5 0 01.5.5v8a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5v-8A.5.5 0 013 5h1.5a.5.5 0 000-1H3a1.5 1.5 0 00-1.5 1.5v8z"
+                clip-rule="evenodd" />
+        </svg>
+    </a>
+
+    <form action="/admin/suppliers/export_txt" method="POST">
+        <div id="export" class="main-container collapse mb-4 col-12 col-lg-4 ">
+            <div class="input-group mb-4 mt-4">
+                <input type="text" name="txt_file_name" class="form-control" placeholder="שם הקובץ">
+            </div>
+            <button class="btn btn-lg btn-primary btn-block w-50" type="submit">ייצא</button>
+        </div>
+    </form>
+
+</div>
+
+
+
+
+
+
+
+<!--Search bar-->
+<div>
+    <div class="form-row">
+        <!-- Search by ID -->
+        <div class="form-group col-md-1">
+            <input id="searchInputSupplierID" class="form-control mr-sm-2" type="number" min="1" placeholder="מזהה ספק" aria-label="Search">
+        </div>
+        <!--Search by company name-->
+        <div class="form-group col-md-3">
+            <div class="input-group">
+                <select class="custom-select" id="search_company_name_input">
+                {% if suppliers is not empty %}
+                    <option value="0" selected>חפש לפי שם חברה</option>
+                    {% for names in suppliers %}
+                    <option value="{{names.supplier_id}}">{{names.company_name}}</option>
+                    {% endfor %}
+                {% endif %}
+                </select>
+            </div>
+        </div>
+        <!-- Search by company name -->
+        <div class="form-group col-md-2">
+            <input id="searchInputContactName" class="form-control mr-sm-2" type="text" placeholder="שם איש קשר" aria-label="Search">
+        </div>
+        <!-- Search by email -->
+        <div class="form-group col-md-3">
+            <input id="searchInputEmail" class="form-control mr-sm-2" type="email" placeholder="כתובת אימייל" aria-label="Search">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--Supplier table-->
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr class="bg-light">
+                <th scope="col">מזהה</th>
+                <th scope="col">שם החברה</th>
+                <th scope="col">שם איש קשר</th>
+                <th scope="col">תפקיד איש קשר</th>
+                <th scope="col">פלאפון איש קשר</th>
+                <th scope="col">פלאפון חברה</th>
+                <th scope="col">אימייל ספק</th>
+                <th scope="col" class="text-center">פעולות</th>
+            </tr>
+        </thead>
+        <tbody id="suppliersTable">
+
+            {% for s in suppliers %}
+            <!--Supplier-->
+            <tr>
+                <th scope="row">{{s.supplier_id}}</th>
+                <td>{{s.company_name}}</td>
+                <td>{{s.contact_name}}</td>
+                <td>{{s.contact_title}}</td>
+                <td>{{s.contact_phone}}</td>
+                <td>{{s.company_phone}}</td>
+                <td>{{s.supplier_email}}</td>
+                <!--Supllier row buttons-->
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <form action="/admin/suppliers/delete/{{s.supplier_id}}" method="POST">
+                            <button class="btn btn-primary mr-2" name="deleteSupplier">הסרה</button>
+                        </form>
+                        <a href="/admin/suppliers/edit/{{s.supplier_id}}" class="btn btn-primary mr-2">עדכון</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script src="/js/Admin/suppliers_index.js"></script>
+{% endblock %}

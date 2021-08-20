@@ -1,0 +1,95 @@
+{% extends "admin_base2.html" %}
+
+{% block link %}
+<!--My style sheet-->
+<link rel="stylesheet" href="/css/admin-index.css">
+{% endblock %}
+
+{%block body%}
+
+    <div class="container">
+        <div class="row mt-4">
+
+            <div class="col-12 col-md-4">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">מצטרפים חדשים</h5>
+                        <h6 class="card-subtitle mb-2 text-muted"></h6>
+                        <div class="d-flex justify-content-between p-2">
+                            <div>
+                                <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                            </div>
+                            <p id="newUsersCountValue" class="card-text h2">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">הזמנות חדשות</h5>
+                        <h6 class="card-subtitle mb-2 text-muted"></h6>
+                        <div class="d-flex justify-content-between p-2">
+                            <div>
+                                <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                    <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                            </div>
+                            <p id="newOrdersCountValue" class="card-text h2">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">מוצרים שנמכרו</h5>
+                        <h6 class="card-subtitle mb-2 text-muted"></h6>
+                        <div class="d-flex justify-content-between p-2">
+                            <div>
+                                <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-lightning" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
+                                    </svg>
+                            </div>
+                            <p id="soldProductsCountValue" class="card-text h2">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" dir="ltr">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <div class="p-4 bg-white" >
+                    <div id="columnchart_material"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 bg-white">
+                    <div id="donutchart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+    <!--Flash messages functions-->
+    <!-- <script src="/js/flash_messages.js"></script> -->
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    <script src="../js/admin/admin_index.js"></script>
+
+    <script src="../js/admin/column_chart.js"></script>
+
+    <script src="../js/admin/donut_chart.js"></script>
+
+{% endblock %}

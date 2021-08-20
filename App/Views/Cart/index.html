@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="/css/cart.css">
+{% endblock %}
+
+{% block title %}עגלת קניות{% endblock %}
+
+{% block body %}
+
+
+<main>
+    {% if not cart_items %}
+    <div class="container text-center h4 mt-4">
+        אין לך מוצרים בעגלה..
+    </div>
+
+    {% else %}
+    <!--Cart info-->
+    <div class="cart-info">
+        <div class="container">
+            <!--Cart columns-->
+            <div class="row">
+                <div class="col">
+                    <div class="cart-info-columns clearfix d-none d-lg-flex">
+                        <div class="cart-info-col cart-info-col-product">מוצר</div>
+                        <div class="cart-info-col cart-info-col-color">צבע</div>
+                        <div class="cart-info-col cart-info-col-size">מידה</div>
+                        <div class="cart-info-col cart-info-col-price">מחיר</div>
+                        <div class="cart-info-col cart-info-col-qnty">כמות</div>
+                        <div class="cart-info-col cart-info-col-total">סה"כ</div>
+                    </div>
+                </div>
+            </div>
+            <!--Product info-->
+            <div class="product-info" id="productInfoCart">
+
+                {% for item in cart_items %}
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="cart-product d-flex flex-column flex-lg-row">
+
+                            <div class="order-2 cart-info-col cart-info-col-product d-flex">
+
+                                <a href="/categories/{{item.category_name}}/{{item.product_id}}">
+                                    <div class="cart-product-image">
+                                        <img src="/images/{{item.product_img}}" alt="{{item.product_img}}"
+                                            class="img-thumbnail">
+                                    </div>
+                                </a>
+
+                                <div class="cart-product-details">
+                                    <div class="product-title">
+                                        <a
+                                            href="/categories/{{item.category_name}}/{{item.product_id}}">{{item.product_name}}</a>
+                                    </div>
+                                    <div class="product-category">
+                                        <a href="/categories/{{item.category_name}}">{{item.display_name}}</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="order-3 cart-info-col cart-info-col-color mt-3">
+                                {{item.colorDisplayName}}
+                            </div>
+
+                            <div class="order-4 cart-info-col cart-info-col-size mt-3">
+                                {{item.sizeDisplayName}}
+                            </div>
+
+                            <div class="order-5 cart-info-col cart-info-col-price mt-3 mr-3">
+                                <span class="mr-1">{{item.product_price}}</span>
+                                <span>ש"ח</span>
+                            </div>
+
+                            <div class="order-6 cart-info-col cart-info-col-qnty mt-3">
+                                <span id="qnttyValue-{{item.product_id}}-{{item.color}}-{{item.size}}" class="mr-1">{{item.quantity}}</span>
+                                <!--Change product quantity in cart-->
+                                <div class="d-flex flex-column">
+                                    <!--Increment quantity-->
+                                    <svg id="incQntty-{{item.product_id}}-{{item.color}}-{{item.size}}" class="changeValue bi bi-caret-up" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3.204 11L8 5.519 12.796 11H3.204zm-.753-.659l4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                                        </svg>
+                                    <!--Decrement quantity-->
+                                    <svg id="decQntty-{{item.product_id}}-{{item.color}}-{{item.size}}" class="changeValue bi bi-caret-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M3.204 5L8 10.481 12.796 5H3.204zm-.753.659l4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                                      </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="order-7 cart-info-col cart-info-col-total mt-3">
+                                <span class="mr-1">{{item.total}}</span>
+                                <span>ש"ח</span>
+                            </div>
+
+                            <div class="order-1 order-md-8">
+                                <form action="/cart/remove_product" method="POST">
+                                    <button type="submit" class="close" aria-label="Close">
+                                        <input type="hidden" name="product_info" value="{{item.product_id}}-{{item.color}}-{{item.size}}">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+
+
+            <!--Cart buttons-->
+            <div class="cart-buttons">
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex flex-column flex-lg-row">
+                            <div class="continue-shopping-btn w-100">
+                                <a href="/categories"
+                                    class="btn btn-outline-dark cart-btn continue-shopping-btn mb-3">המשך
+                                    בקניות</a>
+                            </div>
+                            <div class="update-clear-btns d-flex flex-column flex-lg-row justify-content-between">
+                                <!--Clear cart button-->
+                                <div class="clear-cart-btn">
+                                    <form action="/cart/clear" method="POST">
+                                        <button type="submit" name="clear_cart"
+                                            class="btn btn-outline-dark cart-btn mb-3 w-100">נקה עגלה
+                                        </button>
+                                    </form>
+                                </div>
+                                <!--Update cart button-->
+                                <div class="update-cart-btn" id="updateCartBtn">
+                                    <button class="btn btn-outline-dark cart-btn mb-3 w-100">עדכון עגלה</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--Shipping and total-->
+    <div class="shipping-and-total container">
+        <div class="row">
+
+            <!--Shipping methods-->
+            <div class="col-lg-6">
+                <div class="shipping-title mb-1">
+                    אפשרויות משלוח
+                </div>
+                <div class="shipping-subtitle mb-2">
+                    בחר אחד מהאפשרויות
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                        value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        PayPal
+                    </label>
+                </div>
+            </div>
+
+            <!--Cart total-->
+            <div class="col">
+                <div class="cart-total">
+                    <div class="total-title mb-1">
+                        סיכום עגלה
+                    </div>
+                    <div class="total-subtitle mb-4">
+                        סיכום תשלום
+                    </div>
+                    <div class="total-details p-4">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <div>סה"כ מחיר מוצרים</div>
+                                <div>
+                                    {{subTotal_price}}
+                                    <span>ש"ח</span>
+                                </div>
+                            </div>
+                        </div>
+                      {% if shipping_free_str %}
+                        <div class="mb-3">
+                            <div class="text-danger d-flex justify-content-between">
+                                <div>{{shipping_free_str}}</div>
+                                <div>
+                                    <del>
+                                        {{shipping_price_dscnt}}
+                                        <span>ש"ח</span>
+                                    </del>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <div> מחיר משלוח</div>
+                                <div>
+                                    {{shipping_price}}
+                                    <span>ש"ח</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% if discount is not empty%}
+                        <div class="mb-3">
+                            <div class="text-danger d-flex justify-content-between">
+                                <div> {{discount.string}}</div>
+                                <div>
+                                    {{discount.value}}
+                                    <span>ש"ח</span>
+                                    <span>-</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <div>סכום סופי לתשלום</div>
+                                <div>
+                                    {{total_price}}
+                                    <span>ש"ח</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="paypal-button-container"></div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+</main>
+
+
+{% endblock %}
+
+
+
+{% block script %}
+<script src="/js/cart-general.js"></script>
+<script src="/js/cart.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AaGgcnU-t8acNO0WOr-gC9amhM4qeZ-K9DZDtsJ8EGq-gmVmZGsmOMD42oHng9ju0Q4QfgQGpcJthlN0&currency=ILS"></script>
+<script src="/js/paypal.js"></script>
+{% endblock %}

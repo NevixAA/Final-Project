@@ -1,0 +1,195 @@
+/*Base page settings*/
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	direction: rtl;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	background-color: #f4f4f4;
+	font-family: 'Rubik', sans-serif;
+}
+
+main {
+	flex-grow: 1;
+}
+
+
+/*Discount msg*/
+.dscntContainer {
+	background-color: black;
+	height: 40px;
+	display: flex;
+	align-items: center;
+}
+
+.dscntContainer > div {
+	color: white;
+	margin: 0 auto;
+}
+
+.dscntContainer > button {
+	color: white;
+	margin-right: .5em;
+}
+
+
+
+/* Icons */
+.icon {
+	cursor: pointer !important;
+}
+
+.icon:hover {
+	color: grey !important;
+}
+
+.user-icon {
+	width: 1.7em;
+	height: 1.7em;
+}
+
+.bag-icon {
+	width: 1.4em;
+	height: 1.4em;
+}
+
+
+
+
+
+
+
+
+
+
+/* Main site nav*/
+.main-navbar {
+	background-color: #1A1F24;
+}
+
+.main-navbar .navbar-brand {
+	font-weight: 550;
+	font-size: 1.5em;
+}
+
+
+.main-navbar .dropdown-menu a {
+	color: #1A1F24 !important;
+}
+
+@media only screen and (min-width: 1000px) {
+	.main-navbar {
+		background-color: #f4f4f4 !important;
+		border-bottom: 1px #dee2e6 solid;
+	}
+
+	.main-navbar .nav-link {
+		font-size: 1.1em;
+		border-bottom: 2px transparent solid;
+	}
+
+	.main-navbar .nav-link:hover {
+		border-bottom: 2px red solid;
+	}
+
+	.main-navbar .nav-link {
+		color: #1A1F24 !important;
+	}
+
+
+}
+
+
+
+
+
+
+/* Hello guest msg */
+.press-login {
+	color: black;
+	font-weight: 600;
+}
+
+
+
+
+
+
+
+
+
+/*Carusel*/
+@media only screen and (min-width: 1000px) {
+	.main-carusel {
+		/* padding: 0 14em; */
+	}
+
+	.main-carusel-btn:hover {
+		text-decoration: none;
+		color: #343A40;
+		border-color: #343A40;
+		opacity: .5;
+		background-color: #DCDCDC;
+
+	}
+
+	.main-carusel-btn {
+		display: block !important;
+		padding: .6em 0em;
+		width: 180px;
+		font-size: 1.1rem;
+		letter-spacing: 3px;
+		position: absolute;
+		top: 50%;
+		left: calc(50% - 170px/2);
+		z-index: 1;
+		text-align: center;
+		text-transform: uppercase;
+		border: 3px white solid;
+		border-radius: 3%;
+		opacity: .8;
+		color: white;
+	}
+}
+
+
+
+
+
+
+
+
+/*Costume input focus*/
+.form-control:focus {
+	border-color: rgb(58, 61, 65) !important;
+	box-shadow: 0 0 0 .2rem rgba(18, 27, 37, 0.25) !important;
+
+}
+
+
+#userInfoContainer {
+	width: 200px; 
+	position: absolute; 
+	right: 45px; 
+	z-index: 999; 
+	background-color: #fafafa;
+	display: none;
+}
+
+
+#shoppingCartContainer {
+	position: absolute; 
+	z-index: 999; 
+	background-color: #fafafa; 
+	width: 260px; 
+	display: none;
+}
+
+.userInfo-link {
+	text-decoration: none;
+}

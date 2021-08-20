@@ -1,0 +1,12 @@
+לסדר את הCATEGORIES
+להוסיף חיפוש משופר
+לבדוק LOGIN
+להוסיף הודעות על מבצעים
+בעיה בCARUSEL
+
+
+
+עדכונים:
+DISCONT.PHP
+SUPPLIER.PHP
+SUPPLIER VIEW

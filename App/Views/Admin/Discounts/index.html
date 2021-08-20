@@ -1,0 +1,228 @@
+{% extends "admin_base.html" %}
+
+{% block title %}ניהול מבצעים{% endblock %}
+
+
+{% block dashIcon %}
+<svg class="bi bi-gift-fill dashboard_title_icon" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3z"/>
+<path d="M15 7v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z"/>
+</svg>
+{% endblock %}
+
+
+{% block dashTitle %}מבצעים{% endblock %}
+
+{% block dashSubtitle %}ביצוע מבצעים{% endblock %}
+
+
+{% block body %}
+
+<div class="mt-4 mb-4">
+
+    {% for error in errors %}
+    <div class="text-danger">
+        <span>* </span>{{error}}
+    </div>
+    {% endfor %}
+
+    <div class="text-warning h6">
+      <span>שים לב: </span>
+      <span>אין אפשרות לכפל מבצעים</span>
+    {% if active_discounts %}
+      <div>לא ניתן להוסיף מבצעים חדשים בזמן שיש מבצע קיים</div>
+    {%endif%}
+    </div>
+
+</div>
+
+<div class="row">
+   
+  <!--All site discount-->
+  <div class="col-12 col-lg-6 mb-4">
+    <form action="/admin/discounts" method="post">
+      <div class="col">
+        <div class="col mb-4">
+          <h2>הוספת מבצעים לכל האתר</h2>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend" >
+                  <label class="input-group-text" >קטגוריה</label>
+                </div>
+                <select class="custom-select" name="all_store">
+                  <option value="1" selected>כל האתר</option>
+                </select>
+              </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">הנחה</label>
+                </div>
+                <select name="dscntId" class="custom-select">
+                  <option value="2">הנחה באחוזים על כל החנות</option>
+                </select>
+              </div>
+        </div>
+  
+        <div class="col">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text">תאריך סיום</label>
+              </div>
+              <input type="datetime-local" value="{{site_end_date}}" class="form-control" name="end_date">
+          </div>
+        </div>
+  
+        <div class="col">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">%</span>
+            </div>
+            <input type="number" value="{{site_percent}}" class="form-control" name="percent" placeholder="אחוזים">
+          </div>
+        </div>
+        <div class="col">
+          <button class="btn btn-primary" {%if active_discounts%}disabled{%endif%} name="add_site_dscnt" type="submit">הוסף מבצע</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!--Category discount-->
+  <div class="col-12 col-lg-6 mb-4">
+    <form action="/admin/discounts" method="post">
+      <div class="col">
+        <div class="col mb-4">
+          <h2>הוספת מבצע לקטגוריות</h2>
+        </div>
+        <div class="col d-flex">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text">קטגוריה</label>
+                </div>
+                <select name="catId" class="custom-select">
+                  {% for cat in categories %}
+                  <option value="{{cat.category_id}}">{{cat.display_name}}</option>
+                  {% endfor %}
+                </select>
+                <input type="hidden" name="all_store" value="0">
+              </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="dscntSelect">הנחה</label>
+                </div>
+                <select class="custom-select" id="dscntSelect" name="dscntId">
+                  {% for dscnt in cat_discounts %}
+                  <option value="{{dscnt.discount_id}}" {%if dscntId == dscnt.discount_id%}selected{%endif%}>{{dscnt.discount_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+        </div>
+  
+        <div class="col">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text">תאריך סיום</label>
+              </div>
+              <input type="datetime-local" value="{{end_date}}" class="form-control" name="end_date">
+          </div>
+        </div>
+  
+        <div class="col {%if percent == empty%}d-none{%endif%}" id="percentInp">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">%</span>
+            </div>
+            <input type="number" value="{{percent}}" class="form-control" name="percent" placeholder="אחוזים">
+          </div>
+        </div>
+  
+        <div class="col {%if from_item == empty%}d-none{%endif%}" id="fromStartInp">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">מס'</span>
+            </div>
+            <input type="number" value="{{from_item}}" class="form-control" name="from_item" placeholder="החל מפריט">
+          </div>
+        </div>
+        <div class="col align-self-end">
+          <button class="btn btn-primary" {%if active_discounts%}disabled{%endif%} type="submit" name="add_dscnt" >הוסף מבצע</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+  <h2>מבצעים פעילים</h2>
+  <div class="table-responsive">
+    <table id="dscnt_table"class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">סוג הנחה</th>
+          <th scope="col">קטגוריה</th>
+          <th scope="col">אחוזים</th>
+          <th scope="col">החל מפריט</th>
+          <th scope="col">תאריך התחלה</th>
+          <th scope="col">תאריך סיום</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dscnt in active_discounts %}
+        <tr>
+          <td class="d-flex">
+            <form action="/admin/discounts/delete" method="post">
+              <input type="hidden" name="dscntId" value="{{dscnt.discount_id}}">
+              <input type="hidden" name="catId" value="{{dscnt.category_id}}">
+              <button type="submit" name="del_dscnt" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </form>
+          </td>
+          <td>{{dscnt.discount_name}}</td>
+          <td>
+            {% if dscnt.all_store == 1 %}
+              כל האתר
+            {% else %}
+            {{dscnt.display_name}}
+            {% endif %}
+          </td>
+          <td>
+            <span>%</span>
+            <span>{{dscnt.percent}}</span>
+          </td>
+          <td>{{dscnt.from_item}}</td>
+          <td>{{dscnt.start_date}}</td>
+          <td>{{dscnt.end_date}}</td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block script %}
+<script src="../js/Admin/admin_discounts.js"></script>
+{% endblock %}

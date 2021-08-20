@@ -1,0 +1,107 @@
+
+body {
+    background-color: #ebf0f6; 
+}
+
+/* Dashboard white section for main content */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    top: -100px;
+    background-color: #f8f8f9;
+    border-radius: 4px;
+}
+
+/* Dashboard blue section */
+.dashboard_header {
+    width: 100%;
+    height: 300px;
+    padding: 4.5em 0em 0em 0em;
+    background: rgba(0,96,240,1);
+          background: -moz-linear-gradient(left, rgba(0,96,240,1) 0%, rgba(20,14,194,1) 100%);
+          background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,96,240,1)), color-stop(100%, rgba(20,14,194,1)));
+          background: -webkit-linear-gradient(left, rgba(0,96,240,1) 0%, rgba(20,14,194,1) 100%);
+          background: -o-linear-gradient(left, rgba(0,96,240,1) 0%, rgba(20,14,194,1) 100%);
+          background: -ms-linear-gradient(left, rgba(0,96,240,1) 0%, rgba(20,14,194,1) 100%);
+          background: linear-gradient(to right, rgba(0,96,240,1) 0%, rgba(20,14,194,1) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0060f0', endColorstr='#140ec2', GradientType=1 );
+}
+
+/* Dashboard Icon next to title */
+.dashboard_title_icon {
+    width:2.7em;
+    height:2.7em;
+}
+
+/* The side navigation menu */
+  .sidenav {
+      height: 100%; /* 100% Full-height */
+      width: 250px; /* 0 width - change this with JavaScript */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Stay on top */
+
+      overflow-x: hidden; /* Disable horizontal scroll */
+      padding-top: 60px; /* Place content 60px from the top */
+      transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      color:#343a40;
+      display: block;
+      transition: 0.3s;
+      display: flex; 
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  /* The navigation menu link icon */
+  .link-icon{
+      margin-left: .8em;
+  }
+
+
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+       color: #f1f1f1;
+  }
+
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+  }
+
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+      text-align: right;
+      padding-top: 50px;
+      transition: margin-right .5s;
+      margin-right: 250px;
+      max-width: 100%;
+  }
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+  }
+
+  @media screen and (max-width: 1000px) {
+    .sidenav {width: 100%;}
+    }
+
+
+/* Dashboard gear spinner to open/close sidenav */
+.spinner {
+    cursor: pointer;
+    margin-left: 1em;
+    width:2em;
+    height:2em; 
+}

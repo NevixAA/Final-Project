@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="/css/contact.css">
+{% endblock %}
+
+{% block title %}צור קשר{% endblock %}
+
+{% block body %}
+
+<main>
+
+    <div class="container text-danger mt-4">
+        <ul id="sendEmailErrors"></ul>
+    </div>
+
+    <div class="container mt-4">
+        
+        <div class="form-group">
+            <label for="">נושא</label>
+            <input id="subjectInput" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">תוכן ההודעה</label>
+            <textarea id="bodyInput" class="form-control" id="" rows="9"></textarea>
+        </div>
+
+        <button id="sendEmailBtn" type="submit" class="btn btn-dark">שלח פנייה</button>
+
+        <!--Store location GOOGLE MAP-->
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3354.603827188987!2d35.0311732845028!3d32.77624519133133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1siw!2sil!4v1587909920941!5m2!1siw!2sil"
+            height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+        </iframe>
+    </div>
+
+</main>
+
+
+{% endblock %}
+
+{% block script %}
+<script src="/js/contact.js"></script>
+{% endblock %}

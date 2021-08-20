@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}היסטוריית הזמנות{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="/css/order_history.css">
+{% endblock %}
+
+{% block body %}
+
+
+<div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr class="bg-light">
+                <th scope="col">מס' הזמנה</th>
+                <th scope="col">תאריך ביצוע הזמנה</th>
+                <th scope="col">מחיר סופי</th>
+                <th scope="col">סטטוס</th>
+                <th scope="col" class="text-center">פריטים שהוזמנו</th>
+            </tr>
+        </thead>
+        <tbody>
+  
+            {% for order in orders %}
+            <tr>
+                <th scope="row">{{order.order_id}}</th>
+                <td>{{order.start_date}}</td>
+                <td>{{order.price}} <span>ש"ח</span> </td>
+                <td>{% if order.status == 1 %} מאושר {% else %} ממתין לאישור {% endif %}</td>
+                <td>
+                    <div class="d-flex justify-content-center">
+                        <div class="d-flex align-items-end">
+                            <a href="#order_info{{order.order_id}}" class="btn btn-default" data-toggle="collapse">
+                                <svg class="bi bi-chevron-compact-down" width="1em" height="1em" viewBox="0 0 16 16"
+                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M1.553 6.776a.5.5 0 01.67-.223L8 9.44l5.776-2.888a.5.5 0 11.448.894l-6 3a.5.5 0 01-.448 0l-6-3a.5.5 0 01-.223-.67z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+  
+                </td>
+            </tr>
+            <tr id="order_info{{order.order_id}}" class="main-container collapse">
+                <td colspan="5">
+                    <table class="w-100">
+                        <thead>
+                            <tr>
+                                <th class="h6">
+                                    שם המוצר
+                                </th>
+                                <th class="h6">
+                                    צבע
+                                </th>
+                                <th class="h6">
+                                    מידה
+                                </th>
+                                <th class="h6">
+                                    כמות
+                                </th>
+                                <th class="h6">
+                                    תמונה
+                                </th>
+                            </tr>
+                        </thead>
+  
+                        <tbody>
+                          {% for product in order.ordered_products %}
+                            <tr>
+                                <td>{{product.product_name}}</td>
+                                <td>{{product.color_d_name}}</td>
+                                <td>{{product.size_d_name}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>
+                                  <img src="../images/{{product.product_img}}" alt="{{product.product_name}}" class="order_history_img">
+                                </td>
+                            </tr>
+                          {% endfor %} 
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+  
+  
+  
+        </tbody>
+    </table>
+  </div>
+</div>
+
+
+    
+
+
+{% endblock %}
+
+

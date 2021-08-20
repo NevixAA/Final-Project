@@ -1,0 +1,15 @@
+1)Install Composer
+
+2)Change Root directory:
+
+Open C:\xampp\apache\conf\httpd.conf
+
+
+
+Find tag : DocumentRoot "C:/xampp/htdocs"
+
+Edit tag to : DocumentRoot "C:/xampp/htdocs/myproject/web"
+
+Now find tag and change it to < Directory "C:/xampp/htdocs/myproject/web" >
+
+Restart Your Apache

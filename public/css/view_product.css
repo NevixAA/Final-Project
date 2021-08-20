@@ -1,0 +1,116 @@
+.product_view {
+    margin-top: 2em;
+}
+
+.related-products {
+    margin-top: 3.5em;
+}
+
+.related-product-title {
+    margin-top: 7em;
+}
+
+
+.product-card {
+    width: 100%;
+}
+
+
+.product-view-img {
+    width: 100%;
+}
+
+@media only screen and (min-width:1000px) {
+    .product-view-img {
+        max-width: 100%;
+    }
+
+    .product-card {
+        width: 23%;
+    }
+}
+
+
+/*
+*Quantity buttons style
+*/
+.qntty {
+    border-radius: 3px;
+    background-color: white;
+    border: 1px grey solid;
+    width:2.5em;
+    height:2.5em;
+    cursor: pointer;
+    
+}
+/*incQntty - Increase qntty '+'
+decQntty - Decrease qntty '+'*/
+.decQntty,.incQntty {
+    background-color: #D3D3D3; 
+    color: black;
+}
+
+
+
+
+/**Product colors**/
+.productColor {
+    width: 35px;
+    height: 35px;
+    padding:2px;
+    border-radius: 50%;
+    display: inline-block;
+    margin:0 auto;
+    cursor: pointer;
+
+}
+
+.productColor:hover {
+    background-clip: border-box;
+    opacity: 0.7;
+    border: 3px solid black;
+    
+}
+
+/*Product color selected class*/
+.productColor-selected {
+    border: 4px solid black !important;
+}
+
+.productColor-red {
+    background: #8B0000;
+    border: 2px solid #8B0000;
+}
+
+.productColor-blue {
+    background: #00008B;
+    border: 2px solid #00008B;    
+}
+
+.productColor-black {
+    background: black;
+    border: 2px solid black;
+}
+
+.productColor-white {
+    background: whitesmoke;
+    border: 2px solid grey;
+    background-clip: content-box;
+}
+
+.productColor-blue,
+.productColor-red,
+.productColor-black,
+.productColor-white {
+    background-clip: content-box;
+}
+
+
+
+
+
+/*In stock / out of stock*/
+#inStock,
+#outOfStock {
+    display: none;
+}

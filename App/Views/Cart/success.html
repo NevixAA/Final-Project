@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}סיכום הזמנה{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col text-center">
+            <h1>הזמנתך התקבלה בהצלחה</h1>
+        </div>
+    </div>
+    
+    <div class="row mb-2">
+        <div class="col">
+            <div>
+                משלוח: 
+                <span>{{shipping_price}}</span>
+                <span>ש"ח</span>
+            </div>
+            <div>
+                מחיר סופי:
+                <span class="mr-1">{{totalprice}}</span>
+                <span>ש"ח</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">שם המוצר</th>
+                    <th scope="col">מחיר ליחידה</th>
+                    <th scope="col">צבע</th>
+                    <th scope="col">מידה</th>
+                    <th scope="col">כמות</th>
+                    <th scope="col">סה"כ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for item in cart_items %}
+                  <tr>
+                    <th scope="row">{{item.index}}</th>
+                    <td>{{item.product_name}}</td>
+                    <td>{{item.product_price}}</td>
+                    <td>{{item.colorDisplayName}}</td>
+                    <td>{{item.sizeDisplayName}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.total}} <span>ש"ח</span></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            <p>למעבר לדף הראשי <a href="/"> לחץ כאן</a></p>
+        </div>
+    </div>
+
+
+{% endblock %}

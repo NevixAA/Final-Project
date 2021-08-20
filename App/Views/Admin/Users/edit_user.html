@@ -1,0 +1,115 @@
+{% extends "admin_base.html" %}
+
+{% block link %}
+{% endblock %}
+
+{% block title %}ניהול משתמשים{% endblock %}
+
+{% block dashIcon %}
+
+<svg class="bi bi-people-fill dashboard_title_icon" viewBox="0 0 16 16" fill="currentColor"
+  xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd"
+    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+</svg>
+{% endblock %}
+
+{% block dashTitle %}משתמשים{% endblock %}
+
+{% block dashSubtitle %}עדכון פרטי משתמש{% endblock %}
+
+{% block body %}
+
+
+
+
+<form method="post" action="/admin/users/edit/{{user.id}}">
+
+
+  {% if user.errors is not empty%}
+  <p>Errors:</p>
+  <ul>
+    {% for error in user.errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputName">שם</label>
+      <input class="form-control" type="text" id="inputName" name="name" placeholder="שם" autofocus
+        value="{{ user.name }}" />
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="">שם משפחה</label>
+      <input class="form-control" type="text" name="last_name" placeholder="שם משפחה" autofocus
+        value="{{ user.last_name }}" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="">מספר טלפון</label>
+      <input class="form-control" type="tel" name="phone_num" placeholder="מספר טלפון" value="{{ user.phone_num }}">
+    </div>
+
+    <div class="form-group col-md-8">
+      <label for="inputEmail">אימייל</label>
+      <input class="form-control" id="inputEmail" name="email" placeholder="כתובת אימייל" value="{{ user.email }}" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputPassword">סיסמא</label>
+      <input class="form-control" type="password" id="inputPassword" name="password" placeholder="סיסמא" />
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="inputPasswordConfirmation">סיסמא שנית</label>
+      <input class="form-control" type="password" id="inputPasswordConfirmation" name="password_confirmation"
+        placeholder="סיסמא שנית" />
+    </div>
+  </div>
+
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="">רחוב</label>
+      <input class="form-control" type="text" name="street_name" placeholder="רחוב" value="{{ user.street_name }}">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="">עיר</label>
+      <input class="form-control" type="text" name="city" placeholder="עיר" value="{{ user.city }}">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="">מספר בית</label>
+      <input class="form-control" type="number" pattern="[0-9]+" name="house_num" placeholder="מספר בית"
+        value="{{ user.house_num }}">
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label for="">תאריך לידה</label>
+    <input class="form-control" type="date" name="date_of_birth" value="{{ user.date_of_birth }}">
+  </div>
+
+  <button class="btn btn-primary"  name="user_updated" type="submit">עדכן פרטי משתמש</button>
+
+</form>
+
+
+
+
+
+
+
+
+
+{% endblock %}

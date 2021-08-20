@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="/css/categories.css">
+{% endblock %}
+
+{% block title %}קטגוריות{% endblock %}
+
+
+{% block body %}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h1>
+                {% if categoryName is not empty %} <span>קטגוריית </span>  {{categoryName}}{% else %} כל המוצרים {% endif %}
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+            <div class="d-flex flex-column flex-lg-row flex-wrap">
+
+                {% if products is not empty %}
+                {% for p in products %}
+                <!--Product-->
+                <div class="product px-2">
+                    <div class="product-card card border-0">
+                        <div>
+                            <!--QUICK VIEW ACTION TRYING HERE-->
+                            <div style="position: relative;">
+                                <a href="/categories/{{p.category_name}}/{{p.product_id}}">
+                                    <img class="card-img-top" src="/images/{{p.product_img}}" alt="{{p.display_name}}">
+                                </a>
+
+                            {% if p.product_quantity == 0 %}
+                            <div class="text-white text-center p-1"
+                                style="width: 4em; position: absolute; left: -.5em; top: .5em;  background-color: #4F575E; line-height: 1.1em;">
+                                לא קיים במלאי
+                            </div>
+                            {% elseif p.product_quantity < almost_gone %}
+                            <div class="text-white text-center p-1 bg-danger"
+                                style="width: 4em; position: absolute; left: -.5em; top: .5em; line-height: 1.1em;">
+                                פריטים אחרונים
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        </div>
+                        <div class="product-body pt-2" style="line-height: 1.1em;">
+                            <div class="product-title">
+                                <div class="d-flex justify-content-between">
+                                    <a href="/categories/{{p.category_name}}/{{p.product_id}}" class="text-dark h5 mb-0 text-decoration-none">
+                                        {{p.product_name}}
+                                    </a>
+                                    <div>
+                                        {{p.product_price}}
+                                        <span>ש"ח</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <a href="/categories/{{p.category_name}}" class="text-secondary h6 text-decoration-none">{{p.display_name}}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

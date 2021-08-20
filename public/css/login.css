@@ -1,0 +1,44 @@
+/* Sign in form */
+.form-signin {
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: auto;
+}
+
+
+.form-control {
+    padding: 1.5rem .75em !important;
+}
+
+
+
+
+/* User's Avatar */
+.user-avatar {
+    color: #343A40;
+    width: 13em;
+    height: 13em;
+}
+
+
+
+.login-icon {
+    color: white;
+    height: 1.5em;
+    width: 1.5em;
+}
+
+
+.input-group-text {
+    background-color: #1A1F24;
+}
+
+.loginType {
+    cursor: pointer;
+}
+
+.loginType:hover {
+    opacity: 0.7;
+}
+

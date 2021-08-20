@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}פרטי משתמש{% endblock %}
+
+
+
+{% block body %}
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col mb-4">
+            <h1>פרטי משתמש</h1>
+        </div>
+        <div class="col-12">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputName">שם</label>
+                      <input class="form-control" type="text" placeholder="שם" value="{{ user.name }}" readonly>
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                      <label for="">שם משפחה</label>
+                      <input class="form-control" type="text" placeholder="שם משפחה" value="{{ user.last_name }}" readonly>
+                    </div>
+                  </div>
+                
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="">מספר טלפון</label>
+                      <input class="form-control" type="tel" placeholder="מספר טלפון" value="{{ user.phone_num }}" readonly>
+                    </div>
+                
+                    <div class="form-group col-md-8">
+                      <label for="inputEmail">אימייל</label>
+                      <input class="form-control" placeholder="כתובת אימייל" value="{{ user.email }}" readonly>
+                    </div>
+                  </div>
+                
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="">רחוב</label>
+                      <input class="form-control" type="text" placeholder="רחוב" value="{{ user.street_name }}" readonly>
+                    </div>
+                
+                    <div class="form-group col-md-4">
+                      <label for="">עיר</label>
+                      <input class="form-control" type="text" placeholder="עיר" value="{{ user.city }}" readonly>
+                    </div>
+                
+                    <div class="form-group col-md-4">
+                      <label for="">מספר בית</label>
+                      <input class="form-control" type="number" placeholder="מספר בית" value="{{ user.house_num }}" readonly>
+                    </div>
+                  </div>
+                
+                
+                  <div class="form-group">
+                    <label for="">תאריך לידה</label>
+                    <input class="form-control" type="date" value="{{ user.date_of_birth }}" readonly>
+                  </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+    
+{% endblock %}

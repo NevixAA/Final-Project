@@ -1,0 +1,51 @@
+{% extends "supervisor_base.html" %}
+
+{% block link %}
+{% endblock %}
+
+{% block title %}ניהול הזמנות{% endblock %}
+
+{% block body %}
+
+
+
+
+<!--prodcuts to order table-->
+<div class="container table-responsive mt-4">
+    <table class="table table-hover">
+
+        <thead>
+            <tr class="bg-dark text-white">
+                <th scope="col">מזהה מוצר</th>
+                <th scope="col">מזהה ספק</th>
+                <th scope="col">מחיר מוצר</th>
+                <th scope="col">תאריך העלאה לאתר</th>
+                <th scope="col" class="text-center">שליחה</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for pto in productsToOrder %}
+            <!--products-->
+            <tr>
+                <th scope="row">{{pto.product_id}}</th>
+                <td>{{pto.supplier_id}}</td>
+                <td>{{pto.product_price}}</td>
+                <td>{{pto.uploaded_at}}</td>
+                <td class="text-center">
+                    <form action="/supervisor/sendToSupplier/{{pto.supplier_id}}" method="POST">
+                        <button href="#" class="btn btn-dark" name="send_to_supplier" value={{pto.product_id}} >שליחת בקשה לספק</button>
+                    </form>
+                </td>
+                <!--products row buttons-->
+            </tr>
+
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+
+
+{% endblock %}

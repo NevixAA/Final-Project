@@ -1,0 +1,18 @@
+body {
+    background-color: #eff3f6;
+}
+
+.card {
+    max-width: 25rem;
+}
+
+#columnchart_material,
+#donutchart {
+    width: 100%;
+    min-height: 400px;
+}
+
+html[dir="rtl"] svg + [aria-label] {
+    top: -1000px !important;
+    left: auto !important;
+}
